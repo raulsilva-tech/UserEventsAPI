@@ -1,0 +1,35 @@
+
+POST http://localhost:8888/events HTTP/1.1
+Content-Type: "application/json"
+
+{
+    "user_id": "7771fe6f-2215-46c0-9a35-56a454bd05fc",
+    "event_type_id":"97e9d1c0-f105-424b-bc01-22a3fb063ae9",
+    "performed_at":"2024-02-14T11:57:58.819282Z"
+}
+
+###
+
+GET http://localhost:8888/events/4e9109a8-44f8-4269-ab51-0e3151d0ae99 HTTP/1.1
+
+###
+
+PUT http://localhost:8888/events/4e9109a8-44f8-4269-ab51-0e3151d0ae99 HTTP/1.1
+Content-Type: "application/json"
+
+{
+    "user":{
+        "id": "7771fe6f-2215-46c0-9a35-56a454bd05fc"
+    },
+    "event_type":{
+        "id": "61982b2b-bb1f-4336-a9de-f4e3cb77b6bd"
+    },
+    "performed_at":"2024-02-12T11:57:58.819282Z"
+}
+
+###
+DELETE http://localhost:8888/events/4e9109a8-44f8-4269-ab51-0e3151d0ae99 HTTP/1.1
+
+###
+
+GET http://localhost:8888/events/ HTTP/1.1

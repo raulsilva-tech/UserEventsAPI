@@ -1,0 +1,31 @@
+
+POST http://localhost:8888/users HTTP/1.1
+Content-Type: "application/json"
+
+{
+    "name": "Robert Burke",
+    "email":"robert@gmail.com",
+    "password":"123456"
+}
+
+###
+
+GET http://localhost:8888/users/7aae1143-c74b-46e6-8de9-f5963d5ea637 HTTP/1.1
+
+###
+
+PUT http://localhost:8888/users/7aae1143-c74b-46e6-8de9-f5963d5ea637 HTTP/1.1
+Content-Type: "application/json"
+
+{
+    "name": "Robert Burke Hampshire",
+    "email":"robert@gmail.com.br",
+    "password":"123456"
+}
+
+###
+DELETE http://localhost:8888/users/7aae1143-c74b-46e6-8de9-f5963d5ea637 HTTP/1.1
+
+###
+
+GET http://localhost:8888/users/ HTTP/1.1

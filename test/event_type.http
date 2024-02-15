@@ -1,0 +1,27 @@
+
+POST http://localhost:8888/event_types HTTP/1.1
+Content-Type: "application/json"
+
+{
+    "description":"User action"
+}
+
+###
+
+GET http://localhost:8888/event_types/fc3e7a98-5665-47d0-8cee-d227a7d885ed HTTP/1.1
+
+###
+
+PUT http://localhost:8888/event_types/fc3e7a98-5665-47d0-8cee-d227a7d885ed HTTP/1.1
+Content-Type: "application/json"
+
+{
+    "description":"User Actions"
+}
+
+###
+DELETE http://localhost:8888/event_types/fc3e7a98-5665-47d0-8cee-d227a7d885ed HTTP/1.1
+
+###
+
+GET http://localhost:8888/event_types/ HTTP/1.1

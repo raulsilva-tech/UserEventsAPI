@@ -1,0 +1,52 @@
+- database connection (D)
+- config file (D)
+- entities (d)
+- entities tests (D)
+- entity dao (D)
+- entity dao tests (D)
+- web handlers to offer a rest api for database operations for each entity (D)
+- use go routines to get the fastest user address information and store it into the database (D)
+- graphql api for all entities (F)
+- documentation with Swagga 
+
+graphql:
+0. go get github.com/99designs/gqlgen
+0. go run github.com/99designs/gqlgen init
+1. create file schema.graphqls with all entities and its queries, inputs and mutations
+- create tools.go to keep the necessary references to generate
+2. go run github.com/99designs/gqlgen generate
+3. edit file resolver.go to include the DAO of each entity inside the Resolver type
+4. edit file schema.resolvers.go to implement all data operations 
+5. edit server.go to include the DAO in the Resolver
+
+
+Examples graphql playground:
+
+mutation createUser {
+  createUser(input: {name: "Raul", email: "raul@mail.com", password: "1234"}) {
+    id
+    name
+    email
+    password
+  }
+}
+
+mutation createEVentType {
+  createEventType(input: {description: "Session timeout"}) {
+    id
+    description
+  }
+}
+
+query eventList {
+  events {
+    id
+    user {
+      id
+    }
+    eventType {
+      id
+    }
+    performedAt
+  }
+}

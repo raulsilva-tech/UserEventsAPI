@@ -1,0 +1,70 @@
+# GraphQL schema example
+#
+# https://gqlgen.com/getting-started/
+
+type EventType {
+  id: ID!
+  description: String!
+  events: [Event!]
+}
+
+input NewEventType{
+  description: String!
+}
+
+type User {
+  id: ID!
+  name: String!
+  password: String!
+  email: String!
+  events: [Event!]
+}
+
+input NewUser {
+  name: String!
+  password: String!
+  email: String!
+}
+
+type UserAddress{
+  id: ID!
+  user: User!
+  cep: String!
+}
+
+input NewUserAddress{
+  userId: ID!
+  cep: String!
+}
+
+type Event{
+  id: ID!
+  performedAt: String!
+  user: User!
+  eventType: EventType! 
+}
+
+input NewEvent{
+  performedAt: String!
+  userId: ID!
+  eventTypeId: ID!
+}
+
+type Query{
+  users: [User!]!
+  eventTypes: [EventType!]!
+  events: [Event!]!
+  userAddresses: [UserAddress!]!
+}
+
+input OnlyId{
+  id: ID!
+}
+
+type Mutation{
+   createUser(input: NewUser!): User!
+   createUserAddress(input: NewUserAddress!): UserAddress!
+   createEventType(input: NewEventType!): EventType!
+   createEvent(input: NewEvent!): Event!
+   ##deleteUser(input: OnlyId!):None
+}
