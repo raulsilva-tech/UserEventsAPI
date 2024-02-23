@@ -1,0 +1,594 @@
+basePath: /
+definitions:
+  dto.CreateEventInput:
+    properties:
+      event_type_id:
+        type: string
+      performed_at:
+        type: string
+      user_id:
+        type: string
+    type: object
+  dto.CreateEventTypeInput:
+    properties:
+      description:
+        type: string
+    type: object
+  dto.CreateUserAddressInput:
+    properties:
+      cep:
+        type: string
+      user_id:
+        type: string
+    type: object
+  dto.CreateUserInput:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+    type: object
+  entity.Event:
+    properties:
+      event_type:
+        $ref: '#/definitions/entity.EventType'
+      id:
+        type: string
+      performed_at:
+        type: string
+      user:
+        $ref: '#/definitions/entity.User'
+    type: object
+  entity.EventType:
+    properties:
+      created_at:
+        type: string
+      description:
+        type: string
+      id:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  entity.User:
+    properties:
+      created_at:
+        type: string
+      email:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  entity.UserAddress:
+    properties:
+      cep:
+        type: string
+      city:
+        type: string
+      created_at:
+        type: string
+      id:
+        type: string
+      state:
+        type: string
+      street:
+        type: string
+      updated_at:
+        type: string
+      user:
+        $ref: '#/definitions/entity.User'
+    type: object
+host: localhost:8888
+info:
+  contact:
+    email: raulpaes.work@gmail.com
+    name: Raul Paes Silva
+    url: http://github.com/raulsilva-tech
+  description: User Events API
+  termsOfService: http://swagger.io/terms
+  title: Users Events API
+  version: "1.0"
+paths:
+  /event_types:
+    get:
+      consumes:
+      - application/json
+      description: Gets all event types in the database
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/entity.EventType'
+            type: array
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: Gets all event types
+      tags:
+      - event types
+    post:
+      consumes:
+      - application/json
+      description: Creates a Event type  in the database
+      parameters:
+      - description: Event type request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CreateEventTypeInput'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      summary: Create Event Type
+      tags:
+      - event types
+  /event_types/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Deletes an event type from the database
+      parameters:
+      - description: Event type ID
+        format: uuid
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+      summary: Delete an event type
+      tags:
+      - event types
+    get:
+      consumes:
+      - application/json
+      description: Get an event type by its id
+      parameters:
+      - description: Event type ID
+        format: uuid
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.EventType'
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+      summary: Get an event type
+      tags:
+      - event types
+    put:
+      consumes:
+      - application/json
+      description: Updates an event in the database
+      parameters:
+      - description: event type ID
+        format: uuid
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: event type data
+        in: body
+        name: event_type
+        required: true
+        schema:
+          $ref: '#/definitions/entity.EventType'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.EventType'
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+      summary: Update an event type address
+      tags:
+      - event types
+  /events:
+    get:
+      consumes:
+      - application/json
+      description: Gets all events in the database
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/entity.Event'
+            type: array
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: Gets all events
+      tags:
+      - events
+    post:
+      consumes:
+      - application/json
+      description: Creates a Event  in the database
+      parameters:
+      - description: Event request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CreateEventInput'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      summary: Create Event
+      tags:
+      - events
+  /events/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Deletes an event from the database
+      parameters:
+      - description: Event ID
+        format: uuid
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+      summary: Delete an event
+      tags:
+      - events
+    get:
+      consumes:
+      - application/json
+      description: Get an event by its id
+      parameters:
+      - description: Event ID
+        format: uuid
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.Event'
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+      summary: Get an event
+      tags:
+      - events
+    put:
+      consumes:
+      - application/json
+      description: Updates an event in the database
+      parameters:
+      - description: event ID
+        format: uuid
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: event data
+        in: body
+        name: event
+        required: true
+        schema:
+          $ref: '#/definitions/entity.Event'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.Event'
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+      summary: Update an event address
+      tags:
+      - events
+  /user_address:
+    get:
+      consumes:
+      - application/json
+      description: Gets all users address in the database
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/entity.UserAddress'
+            type: array
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: Gets all users address
+      tags:
+      - user address
+    post:
+      consumes:
+      - application/json
+      description: Creates a User Address  in the database
+      parameters:
+      - description: user address request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CreateUserAddressInput'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      summary: Create User Address
+      tags:
+      - user address
+  /user_address/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Deletes an User Address from the database
+      parameters:
+      - description: User Address ID
+        format: uuid
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+      summary: Delete an User Address
+      tags:
+      - user address
+    get:
+      consumes:
+      - application/json
+      description: Get an user Address by its id
+      parameters:
+      - description: User Address ID
+        format: uuid
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.UserAddress'
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+      summary: Get an user Address
+      tags:
+      - user address
+    put:
+      consumes:
+      - application/json
+      description: Updates an user address in the database
+      parameters:
+      - description: user address ID
+        format: uuid
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: user address data
+        in: body
+        name: user_address
+        required: true
+        schema:
+          $ref: '#/definitions/entity.UserAddress'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.UserAddress'
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+      summary: Update an user address
+      tags:
+      - user address
+  /users:
+    get:
+      consumes:
+      - application/json
+      description: Gets all users in the database
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/entity.User'
+            type: array
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: Gets all users
+      tags:
+      - users
+    post:
+      consumes:
+      - application/json
+      description: Creates a User in the database
+      parameters:
+      - description: user request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CreateUserInput'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      summary: Create User
+      tags:
+      - users
+  /users/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Deletes an User from the database
+      parameters:
+      - description: User ID
+        format: uuid
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+      summary: Delete an User
+      tags:
+      - users
+    get:
+      consumes:
+      - application/json
+      description: Get an user by its id
+      parameters:
+      - description: User ID
+        format: uuid
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.User'
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+      summary: Get an user
+      tags:
+      - users
+    put:
+      consumes:
+      - application/json
+      description: Updates a user in the database
+      parameters:
+      - description: User ID
+        format: uuid
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: User data
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CreateUserInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.User'
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+      summary: Update an user
+      tags:
+      - users
+swagger: "2.0"

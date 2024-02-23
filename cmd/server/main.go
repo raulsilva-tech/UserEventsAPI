@@ -8,10 +8,24 @@ import (
 	"github.com/gin-gonic/gin"
 	_ "github.com/lib/pq"
 	"github.com/raulsilva-tech/UserEventsAPI/configs"
+	_ "github.com/raulsilva-tech/UserEventsAPI/docs"
 	"github.com/raulsilva-tech/UserEventsAPI/internal/infra/database"
 	"github.com/raulsilva-tech/UserEventsAPI/internal/infra/webserver/handler"
+	swaggerfiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
+// @title	Users Events API
+// @version	1.0
+// @description User Events API
+// @termsOfService	http://swagger.io/terms
+
+// @contact.name	Raul Paes Silva
+// @contact.url	http://github.com/raulsilva-tech
+// @contact.email raulpaes.work@gmail.com
+
+// @host	localhost:8888
+// @BasePath /
 func main() {
 
 	//load configuration
@@ -35,6 +49,8 @@ func main() {
 	router := gin.Default()
 
 	createRoutes(router, db)
+
+	router.GET("/docs/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 
 	err = router.Run(":" + cfg.WebServerPort)
 	if err != nil {

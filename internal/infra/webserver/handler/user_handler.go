@@ -21,6 +21,17 @@ func NewUserHandler(dao *database.UserDAO) *UserHandler {
 	}
 }
 
+// Create User godoc
+// @Summary			Create User
+// @Description		Creates a User in the database
+// @Tags 			users
+// @Accept			json
+// @Produce			json
+// @Param			request	body	dto.CreateUserInput	true	"user request"
+// @Success 		201
+// @Failure 		500
+// @Failure 		400
+// @Router 			/users	[post]
 func (h *UserHandler) CreateUser(c *gin.Context) {
 
 	var data dto.CreateUserInput
@@ -46,6 +57,18 @@ func (h *UserHandler) CreateUser(c *gin.Context) {
 	c.JSON(http.StatusCreated, gin.H{"message": "created successfully"})
 }
 
+// Update User godoc
+// @Summary Update an user
+// @Description Updates a user in the database
+// @Tags users
+// @Accept json
+// @Produce json
+// @Param id path string true "User ID"  Format(uuid)
+// @Param user body dto.CreateUserInput true "User data"
+// @Success 200 {object} entity.User
+// @Failure 400
+// @Failure 404
+// @Router /users/{id} [put]
 func (h *UserHandler) UpdateUser(c *gin.Context) {
 
 	var data entity.User
@@ -80,6 +103,17 @@ func (h *UserHandler) UpdateUser(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "updated successfully"})
 }
 
+// GetUser godoc
+// @Summary Get an user
+// @Description Get an user by its id
+// @Tags users
+// @Accept json
+// @Produce json
+// @Param id path string true "User ID" Format(uuid)
+// @Success 200 {object} entity.User
+// @Failure 400
+// @Failure 404
+// @Router /users/{id} [get]
 func (h *UserHandler) GetUser(c *gin.Context) {
 
 	id := c.Param("id")
@@ -101,6 +135,17 @@ func (h *UserHandler) GetUser(c *gin.Context) {
 	c.JSON(http.StatusOK, et)
 }
 
+// Delete User godoc
+// @Summary Delete an User
+// @Description Deletes an User from the database
+// @Tags users
+// @Accept json
+// @Produce json
+// @Param id path string true "User ID"  Format(uuid)
+// @Success 200
+// @Failure 400
+// @Failure 404
+// @Router /users/{id} [delete]
 func (h *UserHandler) DeleteUser(c *gin.Context) {
 
 	id := c.Param("id")
@@ -128,6 +173,16 @@ func (h *UserHandler) DeleteUser(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "deleted successfully"})
 }
 
+// Get All godoc
+// @Summary			Gets all users
+// @Description		Gets all users in the database
+// @Tags 			users
+// @Accept			json
+// @Produce			json
+// @Success 		200	{array}	entity.User
+// @Failure 		500
+// @Failure			404
+// @Router 			/users	[get]
 func (h *UserHandler) GetAllUser(c *gin.Context) {
 
 	etList, err := h.DAO.GetAll()
